@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SquirrelsBox.Generic.Domain.Services
 {
-    public interface IGenricService<T, R>
+    public interface IGenericService<T, R>
     {
         Task<R> SaveAsync(T model);
         Task<R> FindByIdAsync(int id);

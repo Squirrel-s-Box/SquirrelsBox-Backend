@@ -8,17 +8,15 @@ namespace SquirrelsBox.Generic.Extensions
 {
     public static class ErrorMessagesExtensions
     {
-        public static List<string> GetErrorMessages(List<KeyValuePair<string, object>> errorState)
+        public static List<string> GetErrorMessages(Dictionary<string, List<string>> errorState)
         {
             var errors = new List<string>();
             foreach (var item in errorState)
-            {   
-                if (item.Value is List<string> errorList)
-                {
-                    errors.AddRange(errorList);
-                }
+            {
+                errors.AddRange(item.Value);
             }
             return errors;
         }
     }
+
 }
