@@ -11,11 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SquirrelsBox.Security", "Sq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SquirrelsBox.User", "SquirrelsBox.User\SquirrelsBox.User.csproj", "{DA411507-633D-45E8-8CBC-640FBD6D4053}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SquirrelsBox.UserAccess", "SquirrelsBox.UserAccess\SquirrelsBox.UserAccess.csproj", "{275A68B3-0205-4B84-8442-17A695D901BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SquirrelsBox.Session", "SquirrelsBox.UserAccess\SquirrelsBox.Session.csproj", "{275A68B3-0205-4B84-8442-17A695D901BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SquirrelsBox.Permissions", "SquirrelsBox.Permissions\SquirrelsBox.Permissions.csproj", "{8E9FC5AD-5500-4CEB-A85B-A291EDCA300E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SquirrelsBox.Permissions", "SquirrelsBox.Permissions\SquirrelsBox.Permissions.csproj", "{8E9FC5AD-5500-4CEB-A85B-A291EDCA300E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SquirrelsBox.StorageManagement", "SquirrelsBox.StorageManagement\SquirrelsBox.StorageManagement.csproj", "{75B21CF1-42C9-4E11-A9A9-FC354C2FDA4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SquirrelsBox.StorageManagement", "SquirrelsBox.StorageManagement\SquirrelsBox.StorageManagement.csproj", "{75B21CF1-42C9-4E11-A9A9-FC354C2FDA4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
