@@ -1,6 +1,7 @@
 ﻿using SquirrelsBox.Generic.Domain.Repositories;
 using SquirrelsBox.Generic.Domain.Services;
 using SquirrelsBox.Session.Domain.Models;
+using SquirrelsBox.Session.Domain.Repositories;
 using SquirrelsBox.Session.Domain.Services.Communication;
 using SquirrelsBox.Session.Persistnce.Context;
 
@@ -9,17 +10,19 @@ namespace SquirrelsBox.Session.Services
     public class UserSessionService : IGenericService<UserSession, UserSessionResponse>
     {
         private readonly IGenericRepository<UserSession> _repository;
+        private readonly IUserSessionRepository _userSessionService;
         private readonly IUnitOfWork<AppDbContext> _unitOfWork;
 
-        public UserSessionService(IGenericRepository<UserSession> repository, IUnitOfWork<AppDbContext> unitOfWork)
+        public UserSessionService(IGenericRepository<UserSession> repository, IUserSessionRepository userSessionService, IUnitOfWork<AppDbContext> unitOfWork)
         {
             _repository = repository;
-            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _userSessionService = userSessionService;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<UserSessionResponse> DeleteAsync(int id)
         {
-            var result = await _repository.FindByIdAsync(id);
+            var result = await _userSessionService.GetUserSessionByUserIdAsync(id);
             if (result == null)
                 return new UserSessionResponse("AccessSession not found");
 
@@ -32,7 +35,7 @@ namespace SquirrelsBox.Session.Services
             }
             catch (Exception e)
             {
-                return new UserSessionResponse($"An error occurred while deleting the AccessSession AccessSession: {e.Message}");
+                return new UserSessionResponse($"An error occurred while deleting the AccessSession: {e.Message}");
             }
         }
 
@@ -52,7 +55,7 @@ namespace SquirrelsBox.Session.Services
             }
             catch (Exception e)
             {
-                return new UserSessionResponse($"AccessSession AccessSession not found: {e.Message}");
+                return new UserSessionResponse($"AccessSession not found: {e.Message}");
             }
         }
 
@@ -60,7 +63,7 @@ namespace SquirrelsBox.Session.Services
         {
             try
             {
-                model.OldToken = null;
+                model.OldToken = model.Token;
                 model.CreationDate = DateTime.UtcNow;
                 model.LastUpdateDate = null;
 
@@ -71,18 +74,19 @@ namespace SquirrelsBox.Session.Services
             }
             catch (Exception e)
             {
-                return new UserSessionResponse($"An error ocurred while saving the AccessSession AccessSession: {e.Message}");
+                return new UserSessionResponse($"An error ocurred while saving the AccessSession: {e.Message}");
             }
         }
 
         public async Task<UserSessionResponse> UpdateAsync(int id, UserSession model)
         {
-            var result = await _repository.FindByIdAsync(id);
+            var result = await _userSessionService.GetUserSessionByUserIdAndOldTokenAsync(id, model.OldToken);
             if (result == null)
-                return new UserSessionResponse("AccessSession AccessSession Token not found");
+                return new UserSessionResponse("AccessSession not found");
 
             try
             {
+                result.OldToken = result.Token;
                 result.Token = model.Token;
                 result.LastUpdateDate = DateTime.UtcNow;
 

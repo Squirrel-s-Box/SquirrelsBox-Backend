@@ -13,6 +13,8 @@ namespace SquirrelsBox.Session.Mapping
             CreateMap<SaveFoundTokenByUserIdResource, UserSession>();
             CreateMap<SaveTokenResource, DeviceSession>();
 
+            CreateMap<UpdateUserSessionResource, UserSession>();
+
             CreateMap<UpdateUserResource, AccessSession>();
         }
     }

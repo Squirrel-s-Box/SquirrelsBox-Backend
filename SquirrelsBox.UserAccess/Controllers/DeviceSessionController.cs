@@ -16,13 +16,13 @@ namespace SquirrelsBox.Session.Controllers
     public class DeviceSessionController : ControllerBase
     {
         private readonly IGenericService<DeviceSession, DeviceSessionResponse> _service;
-        private readonly IGenericService<Domain.Models.AccessSession, AccessSessionResponse> _userService;
+        private readonly IGenericService<Domain.Models.AccessSession, AccessSessionResponse> _accessSessionService;
         private readonly IMapper _mapper;
 
         public DeviceSessionController(IGenericService<DeviceSession, DeviceSessionResponse> service, IGenericService<Domain.Models.AccessSession, AccessSessionResponse> userService, IMapper mapper)
         {
             _service = service;
-            _userService = userService;
+            _accessSessionService = userService;
             _mapper = mapper;
         }
 
@@ -32,7 +32,7 @@ namespace SquirrelsBox.Session.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ErrorMessagesExtensions.GetErrorMessages(ModelState.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToList())));
 
-            var response = await _userService.FindByCodeAsync(userCode);
+            var response = await _accessSessionService.FindByCodeAsync(userCode);
             if (!response.Success)
                 return BadRequest(response.Message);
 
@@ -52,7 +52,7 @@ namespace SquirrelsBox.Session.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ErrorMessagesExtensions.GetErrorMessages(ModelState.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToList())));
 
-            var findUser = await _userService.FindByCodeAsync(userCode);
+            var findUser = await _accessSessionService.FindByCodeAsync(userCode);
 
             if (findUser.Resource != null)
             {
@@ -77,7 +77,7 @@ namespace SquirrelsBox.Session.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ErrorMessagesExtensions.GetErrorMessages(ModelState.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToList())));
 
-            var findUser = await _userService.FindByCodeAsync(userCode);
+            var findUser = await _accessSessionService.FindByCodeAsync(userCode);
 
             if (findUser.Resource != null)
             {

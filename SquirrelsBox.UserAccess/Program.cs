@@ -19,6 +19,7 @@ builder.Services.AddScoped<IGenericRepository<AccessSession>, AccessSessionRepos
 builder.Services.AddScoped<IGenericRepository<DeviceSession>, DeviceSessionRepository>();
 builder.Services.AddScoped<IDeviceSessionRepository, DeviceSessionRepository>();
 builder.Services.AddScoped<IGenericRepository<UserSession>, UserSessionRespository>();
+builder.Services.AddScoped<IUserSessionRepository, UserSessionRespository>();
 
 // Services init
 builder.Services.AddScoped<IGenericService<AccessSession, AccessSessionResponse>, AccessSessionService>();

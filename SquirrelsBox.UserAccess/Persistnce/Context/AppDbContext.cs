@@ -7,8 +7,8 @@ namespace SquirrelsBox.Session.Persistnce.Context
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<DeviceSession> DeviceToken { get; set; }
-        public DbSet<UserSession> SessionToken { get; set; }
+        public DbSet<DeviceSession> DeviceSession { get; set; }
+        public DbSet<UserSession> UserSession { get; set; }
         public DbSet<AccessSession> AccessSession { get; set; }
 
         public AppDbContext(DbContextOptions options) : base(options)

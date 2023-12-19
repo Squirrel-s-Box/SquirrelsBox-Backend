@@ -16,13 +16,13 @@ namespace SquirrelsBox.Session.Controllers
     public class UserSessionController : ControllerBase
     {
         private readonly IGenericService<UserSession, UserSessionResponse> _service;
-        private readonly IGenericService<AccessSession, AccessSessionResponse> _userService;
+        private readonly IGenericService<AccessSession, AccessSessionResponse> _accessSessionService;
         private readonly IMapper _mapper;
 
         public UserSessionController(IGenericService<UserSession, UserSessionResponse> service, IGenericService<AccessSession, AccessSessionResponse> userService, IMapper mapper)
         {
             _service = service;
-            _userService = userService;
+            _accessSessionService = userService;
             _mapper = mapper;
         }
 
@@ -32,7 +32,7 @@ namespace SquirrelsBox.Session.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ErrorMessagesExtensions.GetErrorMessages(ModelState.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToList())));
 
-            var response = await _userService.FindByCodeAsync(userCode);
+            var response = await _accessSessionService.FindByCodeAsync(userCode);
             if (!response.Success)
                 return BadRequest(response.Message);
 
@@ -46,6 +46,53 @@ namespace SquirrelsBox.Session.Controllers
             return Ok(_mapper.Map<BaseResponse<UserSession>, ValidationResource>(result));
         }
 
+        [HttpPut("{userCode}")]
+        public async Task<IActionResult> PutAsync([FromBody] UpdateUserSessionResource data, string userCode)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ErrorMessagesExtensions.GetErrorMessages(ModelState.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToList())));
 
+            var findUser = await _accessSessionService.FindByCodeAsync(userCode);
+
+            if (findUser.Resource != null)
+            {
+                var model = _mapper.Map<UpdateUserSessionResource, UserSession>(data);
+                var result = await _service.UpdateAsync(findUser.Resource.Id, model);
+
+                if (!result.Success)
+                    return BadRequest(result.Message);
+
+                var itemResource = _mapper.Map<BaseResponse<UserSession>, ValidationResource>(result);
+                return Ok(itemResource);
+            }
+            else
+            {
+                return BadRequest(findUser.Message);
+            }
+        }
+
+        [HttpDelete("{userCode}")]
+        public async Task<IActionResult> DeleteAsync(string userCode)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ErrorMessagesExtensions.GetErrorMessages(ModelState.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToList())));
+
+            var findUser = await _accessSessionService.FindByCodeAsync(userCode);
+
+            if (findUser.Resource != null)
+            {
+                var result = await _service.DeleteAsync(findUser.Resource.Id);
+
+                if (!result.Success)
+                    return BadRequest(result.Message);
+
+                var itemResource = _mapper.Map<BaseResponse<UserSession>, ValidationResource>(result);
+                return Ok(itemResource);
+            }
+            else
+            {
+                return BadRequest(findUser.Message);
+            }
+        }
     }
 }
