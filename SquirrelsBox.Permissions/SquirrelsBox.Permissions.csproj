@@ -18,4 +18,9 @@
     <ProjectReference Include="..\SquirrelsBox.Generic\SquirrelsBox.Generic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\Repositories\" />
+    <Folder Include="Persistence\Repositories\" />
+  </ItemGroup>
+
 </Project>
