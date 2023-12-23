@@ -26,18 +26,15 @@ namespace SquirrelsBox.Permissions.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetAllByUserCodeAsync(string code)
+        [HttpGet()]
+        public async Task<IActionResult> GetAllByUserCodeAsync()
         {
+            string code = "string";
+
             var model = await _service.ListAllByUserCodeAsync(code);
-
-            // Assuming 'model' is a collection of AssignedPermissionResponse objects
             var permissions = model.Select(response => new { code = response.PermissionResource.Code });
-
             return Ok(new { Permissions = permissions });
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveAssignedPermissionResource model)

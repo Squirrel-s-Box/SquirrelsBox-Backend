@@ -1,0 +1,16 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/AssignedPermission",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44385
+        }
+      ],
+      "UpstreamPathTemplate": "/ApiGateway/Permissions",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    }
+  ]
+}

@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SquirrelsBox.Permissions", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SquirrelsBox.StorageManagement", "SquirrelsBox.StorageManagement\SquirrelsBox.StorageManagement.csproj", "{75B21CF1-42C9-4E11-A9A9-FC354C2FDA4D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SquirrelsBox.ApiGateway", "SquirrelsBox.ApiGateway\SquirrelsBox.ApiGateway.csproj", "{D78C8437-4BF0-41AC-8CC5-1366D7338AEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{75B21CF1-42C9-4E11-A9A9-FC354C2FDA4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75B21CF1-42C9-4E11-A9A9-FC354C2FDA4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75B21CF1-42C9-4E11-A9A9-FC354C2FDA4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D78C8437-4BF0-41AC-8CC5-1366D7338AEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D78C8437-4BF0-41AC-8CC5-1366D7338AEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D78C8437-4BF0-41AC-8CC5-1366D7338AEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D78C8437-4BF0-41AC-8CC5-1366D7338AEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
