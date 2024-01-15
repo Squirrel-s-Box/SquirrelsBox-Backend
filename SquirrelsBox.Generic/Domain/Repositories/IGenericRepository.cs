@@ -11,7 +11,7 @@ namespace SquirrelsBox.Generic.Domain.Repositories
             Task AddAsync(T model);
             Task<T> FindByIdAsync(int id);
             Task<T> FindByCodeAsync(string value);
-            void Update(T model);
+            Task Update(T model);
             void Delete(T model);
     }
 }

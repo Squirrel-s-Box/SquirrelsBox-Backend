@@ -10,5 +10,6 @@ namespace SquirrelsBox.Generic.Domain.Repositories
     public interface IGenericReadRepository<T>
     {
         Task<IEnumerable<T>> ListAllByUserCodeAsync(string userCode);
+        Task<IEnumerable<T>> ListAllByIdAsync(int id);
     }
 }

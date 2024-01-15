@@ -9,5 +9,6 @@ namespace SquirrelsBox.Generic.Domain.Services
     public interface IGenericReadService<T, R>
     {
         Task<IEnumerable<R>> ListAllByUserCodeAsync(string userCode);
+        Task<IEnumerable<R>> ListAllByIdCodeAsync(int id);
     }
 }

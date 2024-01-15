@@ -35,6 +35,11 @@ namespace SquirrelsBox.Permissions.Services
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<AssignedPermissionResponse>> ListAllByIdCodeAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<AssignedPermissionResponse>> ListAllByUserCodeAsync(string userCode)
         {
             var results = await _repository.ListAllByUserCodeAsync(userCode);
