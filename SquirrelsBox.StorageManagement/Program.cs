@@ -17,12 +17,20 @@ builder.Services.AddScoped<IGenericRepository<Box>, BoxRepository>();
 builder.Services.AddScoped<IGenericReadRepository<Box>, BoxRepository>();
 builder.Services.AddScoped<IGenericRepository<BoxSectionRelationship>, BoxSectionRelationshipRepository>();
 builder.Services.AddScoped<IGenericReadRepository<BoxSectionRelationship>, BoxSectionRelationshipRepository>();
+builder.Services.AddScoped<IGenericRepository<SectionItemRelationship>, SectionItemRelationshipRepository>();
+builder.Services.AddScoped<IGenericReadRepository<SectionItemRelationship>, SectionItemRelationshipRepository>();
+builder.Services.AddScoped<IGenericRepository<ItemSpecRelationship>, ItemSpecRelationshipRepository>();
+builder.Services.AddScoped<IGenericReadRepository<ItemSpecRelationship>, ItemSpecRelationshipRepository>();
 
 // Services init
 builder.Services.AddScoped<IGenericService<Box, BoxResponse>, BoxService>();
 builder.Services.AddScoped<IGenericReadService<Box, BoxResponse>, BoxService>();
 builder.Services.AddScoped<IGenericService<BoxSectionRelationship, BoxSectionRelationshipResponse>, BoxSectionRelationshipService>();
 builder.Services.AddScoped<IGenericReadService<BoxSectionRelationship, BoxSectionRelationshipResponse>, BoxSectionRelationshipService>();
+builder.Services.AddScoped<IGenericService<SectionItemRelationship, SectionItemRelationshipResponse>, SectionItemRelationshipService>();
+builder.Services.AddScoped<IGenericReadService<SectionItemRelationship, SectionItemRelationshipResponse>, SectionItemRelationshipService>();
+builder.Services.AddScoped<IGenericService<ItemSpecRelationship, ItemSpecRelationshipResponse>, ItemSpecRelationshipService>();
+builder.Services.AddScoped<IGenericReadService<ItemSpecRelationship, ItemSpecRelationshipResponse>, ItemSpecRelationshipService>();
 
 builder.Services.AddScoped<IUnitOfWork<AppDbContext>, UnitOfWork<AppDbContext>>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);

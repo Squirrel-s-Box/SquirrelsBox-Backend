@@ -1,11 +1,11 @@
 ﻿namespace SquirrelsBox.StorageManagement.Domain.Models
 {
-    public class ItemSpecsList
+    public class ItemSpecRelationship
     {
         public int ItemId { get; set; }
-        public int SpecsId { get; set; }
+        public int SpecId { get; set; }
 
         public Item Item { get; set; }
-        public PersonalizedSpec Spec { get; set; }
+        public Spec Spec { get; set; }
     }
 }

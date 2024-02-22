@@ -3,7 +3,7 @@
     public class UpdateBoxSectionsListResource
     {
         public int? BoxId { get; set; }
-        public SaveSectionResource Section { get; set; }
+        public UpdateSectionResource Section { get; set; }
     }
 
     public class UpdateSectionResource

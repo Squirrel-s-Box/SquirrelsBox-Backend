@@ -1,6 +1,6 @@
 ﻿namespace SquirrelsBox.StorageManagement.Domain.Models
 {
-    public class SectionItemsList
+    public class SectionItemRelationship
     {
         public int SectionId { get; set; }
         public int ItemId { get; set; }

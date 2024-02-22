@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿    using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SquirrelsBox.Generic.Domain.Repositories;
 using SquirrelsBox.Generic.Persistence.Repositories;
@@ -15,9 +15,9 @@ namespace SquirrelsBox.StorageManagement.Persistence.Repositories
 
         public async Task AddAsync(BoxSectionRelationship model)
         {
-            var SectionCeated = await _context.Section.AddAsync(model.Section);
+            var SectionCreated = await _context.Section.AddAsync(model.Section);
             await _context.SaveChangesAsync();
-            model.SectionId = SectionCeated.Entity.Id;
+            model.SectionId = SectionCreated.Entity.Id;
             await _context.BoxSectionRelationship.AddAsync(model);
         }
 
@@ -53,7 +53,7 @@ namespace SquirrelsBox.StorageManagement.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task Update(BoxSectionRelationship model)
+        public async void Update(BoxSectionRelationship model)
         {
             if (model.BoxId != 0)
             {
@@ -68,7 +68,7 @@ namespace SquirrelsBox.StorageManagement.Persistence.Repositories
             {
                 _context.Section.Update(model.Section);
             }
-        }
+            }
 
     }
 }

@@ -102,7 +102,7 @@ namespace SquirrelsBox.StorageManagement.Services
                 {
                     //It works as th enew Box Id
                     result.Section.Id = model.BoxId;
-                    await _repository.Update(result);
+                    _repository.Update(result);
 
                     return new BoxSectionRelationshipResponse(result);
                 }
@@ -118,7 +118,7 @@ namespace SquirrelsBox.StorageManagement.Services
                     result.Section.State = model.Section.State;
                     result.Section.LastUpdateDate = DateTime.UtcNow;
 
-                    await _repository.Update(result);
+                    _repository.Update(result);
 
                     result.BoxId = lastBoxId;
                     result.SectionId = lastSectionId;

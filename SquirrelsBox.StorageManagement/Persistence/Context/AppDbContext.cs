@@ -12,11 +12,11 @@ namespace SquirrelsBox.StorageManagement.Persistence.Context
         public DbSet<Box> Box { get; set; }
         public DbSet<Section> Section { get; set; }
         public DbSet<Item> Item { get; set; }
-        public DbSet<PersonalizedSpec> PersonalizedSpec { get; set; }
+        public DbSet<Spec> Spec { get; set; }
 
         public DbSet<BoxSectionRelationship> BoxSectionRelationship { get; set; }
-        public DbSet<SectionItemsList> SectionItemsList { get; set; }
-        public DbSet<ItemSpecsList> ItemSpecsList { get; set; }
+        public DbSet<SectionItemRelationship> SectionItemRelationship { get; set; }
+        public DbSet<ItemSpecRelationship> ItemSpecRelationship { get; set; }
 
 
         public AppDbContext(DbContextOptions options) : base(options)
@@ -91,9 +91,9 @@ namespace SquirrelsBox.StorageManagement.Persistence.Context
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            builder.Entity<PersonalizedSpec>(entity =>
+            builder.Entity<Spec>(entity =>
             {
-                entity.ToTable("personalized_specs");
+                entity.ToTable("specs");
                 entity.HasKey(p => p.Id);
                 entity.Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
                 entity.Property(p => p.HeaderName).HasMaxLength(60);
@@ -105,7 +105,7 @@ namespace SquirrelsBox.StorageManagement.Persistence.Context
 
                 entity.HasMany(ps => ps.ItemSpecsList)
                     .WithOne(psil => psil.Spec)
-                    .HasForeignKey(psil => psil.SpecsId)
+                    .HasForeignKey(psil => psil.SpecId)
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
@@ -122,31 +122,31 @@ namespace SquirrelsBox.StorageManagement.Persistence.Context
                 .WithMany(s => s.BoxSectionsList)
                 .HasForeignKey(bsl => bsl.SectionId);
 
-            builder.Entity<SectionItemsList>()
+            builder.Entity<SectionItemRelationship>()
                 .HasKey(sil => new { sil.SectionId, sil.ItemId });
 
-            builder.Entity<SectionItemsList>()
+            builder.Entity<SectionItemRelationship>()
                 .HasOne(sil => sil.Section)
                 .WithMany(s => s.SectionItemsList)
                 .HasForeignKey(sil => sil.SectionId);
 
-            builder.Entity<SectionItemsList>()
+            builder.Entity<SectionItemRelationship>()
                 .HasOne(sil => sil.Item)
                 .WithMany(i => i.SectionItemsList)
                 .HasForeignKey(sil => sil.ItemId);
 
-            builder.Entity<ItemSpecsList>()
-                .HasKey(psil => new { psil.ItemId, psil.SpecsId });
+            builder.Entity<ItemSpecRelationship>()
+                .HasKey(psil => new { psil.ItemId, psil.SpecId });
 
-            builder.Entity<ItemSpecsList>()
+            builder.Entity<ItemSpecRelationship>()
                 .HasOne(psil => psil.Item)
                 .WithMany(i => i.ItemSpecsList)
                 .HasForeignKey(psil => psil.ItemId);
 
-            builder.Entity<ItemSpecsList>()
+            builder.Entity<ItemSpecRelationship>()
                 .HasOne(psil => psil.Spec)
-                .WithMany()
-                .HasForeignKey(psil => psil.SpecsId);
+                .WithMany(s => s.ItemSpecsList) 
+                .HasForeignKey(psil => psil.SpecId);
 
 
             builder.UseSnakeCaseNamingConvention();
@@ -157,6 +157,22 @@ namespace SquirrelsBox.StorageManagement.Persistence.Context
             await Database.ExecuteSqlRawAsync(
                 "EXEC UpdateBoxSectionRelationship @p0, @p1, @p2",
                 parameters: new object[] { boxId, sectionId, newBoxId }
+            );
+        }
+
+        public async Task UpdateSectionItemRelationship(int sectionId, int itemId, int newSectionId)
+        {
+            await Database.ExecuteSqlRawAsync(  
+                "EXEC UpdateSectionItemRelationship @p0, @p1, @p2",
+                parameters: new object[] { sectionId, itemId, newSectionId }
+            );
+        }
+
+        public async Task UpdateItemSpecRelationship(int itemId, int specId, int newItemId)
+        {
+            await Database.ExecuteSqlRawAsync(
+                "EXEC UpdateItemSpecRelationship @p0, @p1, @p2",
+                parameters: new object[] { itemId, specId, newItemId }
             );
         }
     }

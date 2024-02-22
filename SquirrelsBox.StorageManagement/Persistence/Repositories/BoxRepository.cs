@@ -42,7 +42,7 @@ namespace SquirrelsBox.StorageManagement.Persistence.Repositories
             return await _context.Box.Where(b => b.UserCodeOwner == userCode).ToListAsync();
         }
 
-        public async Task Update(Box model)
+        public void Update(Box model)
         {
             _context.Box.Update(model);
         }

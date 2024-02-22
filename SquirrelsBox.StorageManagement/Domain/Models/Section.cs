@@ -10,6 +10,6 @@ namespace SquirrelsBox.StorageManagement.Domain.Models
         public bool State { get; set; }
 
         public ICollection<BoxSectionRelationship> BoxSectionsList { get; set; }
-        public ICollection<SectionItemsList> SectionItemsList { get; set; }
+        public ICollection<SectionItemRelationship> SectionItemsList { get; set; }
     }
 }

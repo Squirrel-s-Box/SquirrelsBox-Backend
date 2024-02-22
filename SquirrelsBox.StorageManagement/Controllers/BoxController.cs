@@ -9,6 +9,7 @@ using SquirrelsBox.Generic.Resources;
 using SquirrelsBox.StorageManagement.Domain.Models;
 using SquirrelsBox.StorageManagement.Domain.Services.Communication;
 using SquirrelsBox.StorageManagement.Resources;
+using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SquirrelsBox.StorageManagement.Controllers
@@ -94,6 +95,68 @@ namespace SquirrelsBox.StorageManagement.Controllers
 
             var itemResource = _mapper.Map<BaseResponse<Box>, ValidationResource>(result);
             return Ok(itemResource);
+        }
+
+        [HttpPost()]    
+        public async Task<IActionResult> ReadE()
+        {
+            // Call the function to count letters passing the file path
+            var count = await CountWordsWithThreeEs("D:\\Squirrels_box\\SquirrelsBox\\SquirrelsBox.StorageManagement\\text1.txt");
+
+            // Do something with the count, for example, return it as a response
+            return Ok(count);
+        }
+
+        private async Task<int> CountWordsWithThreeEs(string filePath)
+        {
+            try
+            {
+                // Read the content of the file asynchronously
+                using (var reader = new StreamReader(filePath))
+                {
+                    var content = await reader.ReadToEndAsync();
+
+                    // Split the content into words based on spaces
+                    var words = content.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    // Initialize count of words containing exactly three 'e's
+                    int count = 0;
+
+                    // Loop through each word and check if it contains exactly three 'e's
+                    foreach (var word in words)
+                    {
+                        // Check if the word is lowercase and contains exactly three 'e's
+                        if (word.ToLower() == word && CountEs(word.ToLower()) == 3)
+                        {
+                            count++;
+                        }
+                    }
+
+                    return count;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions appropriately
+                Console.WriteLine("Error: " + ex.Message);
+                return -1; // or throw an exception, depending on your application's requirements
+            }
+        }
+
+        // Function to count occurrences of 'e' in a word
+        private int CountEs(string word)
+        {
+            int count = 0;
+
+            foreach (char c in word)
+            {
+                if (c == 'e')
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
     }
 }
